@@ -1,0 +1,616 @@
+Commit e rollback
+
+Lucas Freitas
+​Matheus Araujo​
+#As linhas de código seguintes foram geradas pelo Vitor Antunes e sua equipe. Copiem e colem no Workbench e realize os exemplos e exercícios solicitados em seguida.
+
+#cria o banco de dados
+
+create database Copa2022;
+
+use copa2022;
+
+#cria tabela das seleções
+
+create table selecao(
+
+nome_selecao varchar(100),
+
+id_selecao int primary key,
+
+regiao varchar(100),
+
+grupo varchar(100)
+
+);
+
+#cria tabela de jogadores
+
+create table jogadores(
+
+id_jogador int primary key,
+
+nome varchar(100),
+
+posicao varchar(100),
+
+num_camisa int
+
+);
+
+#cria tabela dos id de chaves estrangeiras
+
+create table tabelaid(
+
+id_jogador int,
+
+id_selecao int,
+
+constraint pk_tabelaid primary key (id_jogador, id_selecao),
+
+constraint fk_jogador foreign key (id_jogador) references jogadores(id_jogador),
+
+constraint fk_selecao foreign key (id_selecao) references selecao(id_selecao)
+
+);
+
+#insere dados na tabela de seleção
+
+insert into selecao(nome_selecao, id_selecao, regiao, grupo) values
+
+("Qatar",1,"Oriente Médio","A"),
+
+("Equador",2,"América do Sul","A"),
+
+("Senegal",3,"África Ocidental","A"),
+
+("Holanda",4,"Países Baixos","A"),
+
+("Inglaterra",5,"Nação constituinte do Reino Unido","B"),
+
+("Irã",6,"Oriente Médio","B"),
+
+("Estados Unidos",7,"América do Norte","B"),
+
+("País de Gales",8,"Reino Unido","B"),
+
+("Argentina",9,"América do Sul","C"),
+
+("Arábia Saudita",10,"Oriente Médio","C"),
+
+("Méxio",11,"América do Norte","C"),
+
+("Polônia",12,"Europa","C"),
+
+("França",13,"Europa","D"),
+
+("Austrália",14,"Oceania","D"),
+
+("Dinarmaca",15,"Europa","D"),
+
+("Tunísia",16,"Norte da África","D"),
+
+("Espanha",17,"Europa","E"),
+
+("Costa Rica",18,"América Central","E"),
+
+("Alemanhã",19,"Europa","E"),
+
+("Japão",20,"Ásia","E"),
+
+("Bélgica",21,"Europa","F"),
+
+("Canadá",22,"América do Norte","F"),
+
+("Marrocos",23,"Norte da África","F"),
+
+("Croácia",24,"Europa","F"),
+
+("Brasil",25,"América do Sul","G"),
+
+("Sérbia",26,"Europa","G"),
+
+("Suiça",27,"Europa","G"),
+
+("Camarões",28,"África Central","G"),
+
+("Portugal",29,"Europa","H"),
+
+("Gana",30,"África Ocidental","H"),
+
+("Uruguai",31,"América do Sul","H"),
+
+("Coreia do Sul",32,"Ásia","H");
+
+#insere dados na tabela de jogadores (4 jogadores para cada time)
+
+#qatar
+
+insert into jogadores(id_jogador, nome, posicao, num_camisa) values
+
+(1,"Almoez Ali","Atacante",19),
+
+(2,"Ró-Ró","Zagueiro",2),
+
+(3,"Akram Afif","Atacante",11),
+
+(4,"Hassam Al-Haydos","Atacante",10);
+
+#equador
+
+insert into jogadores(id_jogador, nome, posicao, num_camisa) values
+
+(5,"Byron CAstillo","Zagueiro",23),
+
+(6,"Gonzalo Plata","Atacante",19),
+
+(7,"Enner Valencia","Atacante",13),
+
+(8,"Piero Hincapié","Zagueiro",3);
+
+#senegal
+
+insert into jogadores(id_jogador, nome, posicao, num_camisa) values
+
+(9,"Sadio Mané","Atacante",10),
+
+(10,"Kalidou Koulibaly","Zagueiro",3),
+
+(11,"Édouard Mendy","Goleiro",16),
+
+(12,"Idrissa Gueye","Meia",5);
+
+#holanda
+
+insert into jogadores(id_jogador, nome, posicao, num_camisa) values
+
+(13,"Frenkie de Jong", "Meia",21),
+
+(14,"Marten de Roon","Meia",15),
+
+(15,"Memphis Depay","Atacante",10),
+
+(16,"Hansa Hateboer","Zagueiro",33);
+
+#inglaterra
+
+insert into jogadores(id_jogador, nome, posicao, num_camisa) values
+
+(17,"Harry Kane", "Atacante",9),
+
+(18,"Bukayo","Meia",25),
+
+(19,"Jack Grealish","Meia",7),
+
+(20,"Harry Maguire","Zagueiro",6);
+
+#ira
+
+insert into jogadores(id_jogador, nome, posicao, num_camisa) values
+
+(21,"Mehdi Taremi","Atacante",17),
+
+(22,"Sadar Azmoun","Atacante",20),
+
+(23,"Alireza Jahanbakhsh","Atacante",18),
+
+(24,"Alireza Beiranvand","Goleiro",1);
+
+#USA
+
+insert into jogadores(id_jogador, nome, posicao, num_camisa) values
+
+(25,"Christian Pulisic","Meia",10),
+
+(26,"Giovanni Reyna","Meia",7),
+
+(27,"Sergiño Dest","Zagueiro",21),
+
+(28,"Weston McKennie","Meia",8);
+
+#gales
+
+insert into jogadores(id_jogador, nome, posicao, num_camisa) values
+
+(29,"Gareth Bale","Atacante",11),
+
+(30,"Aaron Ramsey","Meia",10),
+
+(31,"Daniel James","Atacante",20),
+
+(32,"Neco Williams","Zagueiro",3);
+
+#argentina
+
+insert into jogadores(id_jogador, nome, posicao, num_camisa) values
+
+(33,"Lionel Messi","Atacante",10),
+
+(34,"Papu Gómez","Meia",24),
+
+(35,"Giovani Lo Celso","Meia",20),
+
+(36,"Exequiel Palacios","Meia",14);
+
+#arabia saudita
+
+insert into jogadores(id_jogador, nome, posicao, num_camisa) values
+
+(37,"Saeed Al Mowalad","Zagueiro",22),
+
+(38,"Waleed Bakshween","Meia",3),
+
+(39,"Abdullah Otayf","Meia",14),
+
+(40,"Nawaf Al Abed","Meia",1);
+
+#mexico
+
+insert into jogadores(id_jogador, nome, posicao, num_camisa) values
+
+(41,"Rodolfo Pizarro","Meia",24),
+
+(42,"Alfredo Talavera","Goleiro",1),
+
+(43,"Miguel Layún","Zagueiro",7),
+
+(44,"Alfonso González","Meia",21);
+
+#polonia
+
+insert into jogadores(id_jogador, nome, posicao, num_camisa) values
+
+(45,"Robert Lewandowski","Atacante",9),
+
+(46,"Bartosz Salamon","Zagu eiro",18),
+
+(47,"Karol Linetty","Meia",8),
+
+(48,"Matty Cash","Zagueiro",2);
+
+#frança
+
+insert into jogadores(id_jogador, nome, posicao, num_camisa) values
+
+(49,"Aurélien Tchouaméni","Meia",18),
+
+(50,"Kylian Mbappé","Atacante",10),
+
+(51,"Presnel Kimpembe","Zagueiro",3),
+
+(52,"Ferland Mendy","Zagueiro",23);
+
+#australia
+
+insert into jogadores(id_jogador, nome, posicao, num_camisa) values
+
+(53,"Ajdin Hrustic","Meia",17),
+
+(54,"Adam Federici","Goleiro",1),
+
+(55,"Brad Smith","Zagueiro",5),
+
+(56,"Awer Mabil","Atacante",21);
+
+#dinarmaca
+
+insert into jogadores(id_jogador, nome, posicao, num_camisa) values
+
+(57,"Jesper Hansen","Goleiro",1),
+
+(58,"Jannik Vestergaard","Zagueiro",3),
+
+(59,"Andreas Christensen","Zagueiro",6),
+
+(60,"Victor Nelsson","Zagueiro",4);
+
+#tunisia
+
+insert into jogadores(id_jogador, nome, posicao, num_camisa) values
+
+(61,"Yassine Chikhaoui","Meia",2),
+
+(62,"Moez Ben Cherifia","Goleiro",1),
+
+(63,"Taha Yassine Khenissi","Atacante",11),
+
+(64,"Rami Bedoui","Zagueiro",22);
+
+#espanha
+
+insert into jogadores(id_jogador, nome, posicao, num_camisa) values
+
+(65,"Dani Olmo","Meia",19),
+
+(66,"Mikel Merino","Meia",8),
+
+(67,"Raúl Albiol","Zagueiro",3),
+
+(68,"Thiago Alcântara","Meia",10);
+
+#costa rica
+
+insert into jogadores(id_jogador, nome, posicao, num_camisa) values
+
+(69,"José Guillermo Ortiz","Atacante",21),
+
+(70,"Kendall Waston","Zagueiro",19),
+
+(71,"Celso Borges","Meia",5),
+
+(72,"Bryan Oviedo","Zagueiro",8);
+
+#alemanha
+
+insert into jogadores(id_jogador, nome, posicao, num_camisa) values
+
+(73,"Joshua Kimmich","Meia",6),
+
+(74,"Marc-André Ter Stegen","Goleiro",1),
+
+(75,"Kevin Volland","Atacante",9),
+
+(76,"Kevin Trapp","Goleiro",22);
+
+#japao
+
+insert into jogadores(id_jogador, nome, posicao, num_camisa) values
+
+(77,"Yoshinori Muto","Atacante",13),
+
+(78,"Ryo Miyaichi","Atacante",17),
+
+(79,"Gen Shoji","Zagueiro",3),
+
+(80,"Yuto Nagatomo","Zagueiro",5);
+
+#canada
+
+insert into jogadores(id_jogador, nome, posicao, num_camisa) values
+
+(81,"Thomas Meunier","Zagueiro",15),
+
+(82,"Dennis Praet","Meia",26),
+
+(83,"Michy Batshuayi","Atacante",23),
+
+(84,"Matz Sels","Goleiro",1);
+
+#belgica
+
+insert into jogadores(id_jogador, nome, posicao, num_camisa) values
+
+(85,"Tosaint Ricketts","Atacante",87),
+
+(86,"Maxime Crépeau","Goleiro",1),
+
+(87,"Ashtone Morgan","Zagueiro",3),
+
+(88,"Atiba Hutchinson","Meia",13);
+
+#marrocos
+
+insert into jogadores(id_jogador, nome, posicao, num_camisa) values
+
+(89,"Achraf Lazaar","Zagueiro",2),
+
+(90,"Youssef El-Arabi","Atacante",11),
+
+(91,"Omar El Kaddouri","Meia",7),
+
+(92,"Nordin Amrabat","Meia",5);
+
+#croacia
+
+insert into jogadores(id_jogador, nome, posicao, num_camisa) values
+
+(93,"Dejan Lovren","Zagueiro",6),
+
+(94,"Duje Ćaleta-Car","Zagueiro",5),
+
+(95,"Domagoj Vida","Zagueiro",21),
+
+(96,"Ivan Perišić","Meia",4);
+
+#brasil
+
+insert into jogadores(id_jogador, nome, posicao, num_camisa) values
+
+(97,"Gabriel Barbosa","Atacante",21),
+
+(98,"Daniel Alves","Meia",33),
+
+(99,"Alex Sandro","Zagueiro",6),
+
+(100,"Richarlison","Atacante",7);
+
+#servia
+
+insert into jogadores(id_jogador, nome, posicao, num_camisa) values
+
+(101,"Filip Mladenović","Zagueiro",3),
+
+(102,"Nemanja Gudelj","Meia",8),
+
+(103,"Nemanja Radonjić","Meia",7),
+
+(104,"Nikola Milenković","Zagueiro",4);
+
+#suiça
+
+insert into jogadores(id_jogador, nome, posicao, num_camisa) values
+
+(105,"Christian Fassnacht","Meia",16),
+
+(106,"Nico Elvedi","Zagueiro",4),
+
+(107,"Yann Sommer","Goleiro",1),
+
+(108,"Yvon Mvogo","Goleiro",12);
+
+#camaroes
+
+insert into jogadores(id_jogador, nome, posicao, num_camisa) values
+
+(109,"Jean-Armel Kana-Biyik","Zagueiro",2),
+
+(110,"Michael Ngadeu-Ngadjui","Zagueiro",5),
+
+(111,"Georges Mandjeck","Meia",14),
+
+(112,"Carlos Kameni","Goleiro",1);
+
+#portugal
+
+insert into jogadores(id_jogador, nome, posicao, num_camisa) values
+
+(113,"Bruno Fernandes","Meia",11),
+
+(114,"Diogo Dalot","Zagueiro",20),
+
+(115,"Luís Neto","Zagueiro",4),
+
+(116,"João Félix","Atacante",7);
+
+#gana
+
+insert into jogadores(id_jogador, nome, posicao, num_camisa) values
+
+(117,"Kwadwo Asamoah","Zagueiro",3),
+
+(118,"Afriyie Acquah","Meia",4),
+
+(119,"Andy Yiadom","Zagueiro",2),
+
+(120,"Jordan Ayew","Atacante",9);
+
+#uruguai
+
+insert into jogadores(id_jogador, nome, posicao, num_camisa) values
+
+(121,"Sebastián Coates","Zagueiro",19),
+
+(122,"Federico Valverde","Meia",15),
+
+(123,"Lucas Torreira","Meia",14),
+
+(124,"Rodrigo Bentancur","Meia",6);
+
+#republica das coreias
+
+insert into jogadores(id_jogador, nome, posicao, num_camisa) values
+
+(125,"Nam Tae-Hee","Meia",19),
+
+(126,"Kim Shin-Wook","Atacante",9),
+
+(127,"Choi Chul-Soon","Zagueiro",25),
+
+(128,"Kim Seung-Gyu","Goleiro",1);
+
+#insere os ids na tabela de ids
+
+insert into tabelaid(id_selecao,id_jogador) values
+
+(1,1),(1,2),(1,3),(1,4),
+
+(2,5),(2,6),(2,7),(2,8),
+
+(3,9),(3,10),(3,11),(3,12),
+
+(4,13),(4,14),(4,15),(4,16),
+
+(5,17),(5,18),(5,19),(5,20),
+
+(6,21),(6,22),(6,23),(6,24),
+
+(7,25),(7,26),(7,27),(7,28),
+
+(8,29),(8,30),(8,31),(8,32),
+
+(9,33),(9,34),(9,35),(9,36),
+
+(10,37),(10,38),(10,39),(10,40),
+
+(11,41),(11,42),(11,43),(11,44),
+
+(12,45),(12,46),(12,47),(12,48),
+
+(13,49),(13,50),(13,51),(13,52),
+
+(14,53),(14,54),(14,55),(14,56),
+
+(15,57),(15,58),(15,59),(15,60),
+
+(16,61),(16,62),(16,63),(16,64),
+
+(17,65),(17,66),(17,67),(17,68),
+
+(18,69),(18,70),(18,71),(18,72),
+
+(19,73),(19,74),(19,75),(19,76),
+
+(20,77),(20,78),(20,79),(20,80),
+
+(21,81),(21,82),(21,83),(21,84),
+
+(22,85),(22,86),(22,87),(22,88),
+
+(23,89),(23,90),(23,91),(23,92),
+
+(24,93),(24,94),(24,95),(24,96),
+
+(25,97),(25,98),(25,99),(25,100),
+
+(26,101),(26,102),(26,103),(26,104),
+
+(27,105),(27,106),(27,107),(27,108),
+
+(28,109),(28,110),(28,111),(28,112),
+
+(29,113),(29,114),(29,115),(29,116),
+
+(30,117),(30,118),(30,119),(30,120),
+
+(31,121),(31,122),(31,123),(31,124),
+
+(32,125),(32,126),(32,127),(32,128);
+
+#execute o bloco de comandos
+
+START TRANSACTION;
+      UPDATE selecao SET nome_selecao = "BRASIL XXXX" WHERE id_selecao = 25;
+    SELECT * from selecao;
+ROLLBACK;
+
+#em seguida execute a consulta novamente e reflita sobre o resultado que visualizou:
+
+SELECT * FROM selecao;
+
+#Realize o teste seguinte, a transação com COMMIT, que consolidaa as operações
+
+START TRANSACTION;
+      UPDATE selecao SET nome_selecao = "BRASIL XXXX" WHERE id_selecao = 25;
+    SELECT * from selecao;
+COMMIT;
+
+select * from selecao;
+
+#em seguida, execute a consulta novamente e reflita sobre o resultado que visualizou:
+
+select * from selecao where id_selecao = 25;
+#Realize as atividades seguintes:
+
+#1) Copie e cole esse script no Workbench
+
+#2) Insira mais 2 jogadores para a seleção brasileira
+
+#3) Se tiver algum dado que necessita atualização, atualize
+
+#4) Desenhe o DER com as cardinalidades em conformidade com o código apresentado.
+
+#5) Que outra resolução você poderia realizar levando-se em conta o relacionamento entre as entidades Selecao e Jogadores e a cardinalidade.
+
+#6) Execute os exemplos;
+
+#7) Crie uma view para mostrar os jogadores agrupados por seleção;
